@@ -18,7 +18,7 @@ def main(argv):
 
     try:
         book_data = get_book_data(url)
-        book_file_name = OUTPUT_DIRECTORY + ' / ' + book_data['canonicalBookName'] + '.json'
+        book_file_name = OUTPUT_DIRECTORY + '/' + book_data['canonicalBookName'] + '.json'
 
 
         for chapter_num, chapter_link in book_data['chapters'].items():
