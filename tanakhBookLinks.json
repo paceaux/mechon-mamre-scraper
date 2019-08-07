@@ -1,0 +1,44 @@
+{
+    "torah": {
+        "Genesis": "https://www.mechon-mamre.org/p/pt/pt0101.htm",
+        "Exodus": "https://www.mechon-mamre.org/p/pt/pt0201.htm",
+        "Leviticus": "https://www.mechon-mamre.org/p/pt/pt0301.htm",
+        "Numbers": "https://www.mechon-mamre.org/p/pt/pt0401.htm",
+        "Deuteronomy": "https://www.mechon-mamre.org/p/pt/pt0501.htm"
+    },
+    "prophets": {
+        "Joshua": "https://www.mechon-mamre.org/p/pt/pt0601.htm",
+        "Judges": "https://www.mechon-mamre.org/p/pt/pt0701.htm",
+        "Samuel": "https://www.mechon-mamre.org/p/pt/pt08a01.htm",
+        "Kings": "https://www.mechon-mamre.org/p/pt/pt09a01.htm",
+        "Isaiah": "https://www.mechon-mamre.org/p/pt/pt1001.htm",
+        "Jeremiah": "https://www.mechon-mamre.org/p/pt/pt1101.htm",
+        "Ezekiel": "https://www.mechon-mamre.org/p/pt/pt1201.htm",
+        "Hosea": "https://www.mechon-mamre.org/p/pt/pt1301.htm",
+        "Joel": "https://www.mechon-mamre.org/p/pt/pt1401.htm",
+        "Amos": "https://www.mechon-mamre.org/p/pt/pt1501.htm",
+        "Obadiah": "https://www.mechon-mamre.org/p/pt/pt1601.htm",
+        "Jonah": "https://www.mechon-mamre.org/p/pt/pt1701.htm",
+        "Micah": "https://www.mechon-mamre.org/p/pt/pt1801.htm",
+        "Nahum": "https://www.mechon-mamre.org/p/pt/pt1901.htm",
+        "Habakkuk": "https://www.mechon-mamre.org/p/pt/pt2001.htm",
+        "Zephaniah": "https://www.mechon-mamre.org/p/pt/pt2101.htm",
+        "Haggai": "https://www.mechon-mamre.org/p/pt/pt2201.htm",
+        "Zechariah": "https://www.mechon-mamre.org/p/pt/pt2301.htm",
+        "Malachi": "https://www.mechon-mamre.org/p/pt/pt2401.htm"
+    },
+    "writings": {
+        "Chronicles": "https://www.mechon-mamre.org/p/pt/pt25a01.htm",
+        "Psalms": "https://www.mechon-mamre.org/p/pt/pt2601.htm",
+        "Job": "https://www.mechon-mamre.org/p/pt/pt2701.htm",
+        "Proverbs": "https://www.mechon-mamre.org/p/pt/pt2801.htm",
+        "Ruth": "https://www.mechon-mamre.org/p/pt/pt2901.htm",
+        "Song of Songs": "https://www.mechon-mamre.org/p/pt/pt3001.htm",
+        "Ecclesiastes": "https://www.mechon-mamre.org/p/pt/pt3101.htm",
+        "Lamentations": "https://www.mechon-mamre.org/p/pt/pt3201.htm",
+        "Esther": "https://www.mechon-mamre.org/p/pt/pt3301.htm",
+        "Daniel": "https://www.mechon-mamre.org/p/pt/pt3401.htm",
+        "Ezra / Nehemiah": "https://www.mechon-mamre.org/p/pt/pt35a01.htm"
+    },
+    "startUrl": "https://www.mechon-mamre.org/p/pt/pt0.htm"
+}
