@@ -94,7 +94,6 @@ def get_chapter_data_from_html(html):
         return chapter_data
 
 def get_chapter_data(url):
-    print(url)
     try:
         pageHtml = get_page(url)
         chapter_data = get_chapter_data_from_html(pageHtml)

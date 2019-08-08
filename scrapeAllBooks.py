@@ -22,7 +22,7 @@ def main(argv):
             bookList = json.load(datafile)
 
             if (bookList[bookGroupName] is not None):
-                print(bookList[bookGroupName])
+                print('getting list of books:' + bookGroupName)
                 for book, url in bookList[bookGroupName].items():
                     print(url)
                     scrapeBook(url)
