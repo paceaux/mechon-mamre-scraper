@@ -7,7 +7,8 @@ OUTPUT_DIRECTORY = 'books'
 
 def scrapeBook(url):
     book_data = get_book_data(url)
-    book_file_name = OUTPUT_DIRECTORY + '/' + book_data['canonicalBookName'] + '.json'
+    sanitized_book_name = book_data['canonicalBookName'].replace(' ', '_').replace('/','+')
+    book_file_name = OUTPUT_DIRECTORY + '/' + sanitized_book_name + '.json'
 
     for chapter_num, chapter_link in book_data['chapters'].items():
         chapter_data = get_chapter_data(chapter_link)
