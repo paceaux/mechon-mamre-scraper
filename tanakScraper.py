@@ -2,6 +2,8 @@ import urllib, os, sys, getopt, json, collections
 from fetchPages import simple_get
 from tanakhData import get_tanakh_data
 
+OUTPUT_DIRECTORY = 'books'
+
 
 def main(argv):
     try:
@@ -16,7 +18,7 @@ def main(argv):
 
     try:
         tanakh_data = get_tanakh_data(url)
-        file_name = 'tanakhBookLinks.json'
+        file_name = OUTPUT_DIRECTORY + '/' + 'tanakhBookLinks.json'
 
         with open(file_name, 'w') as outfile:
             json.dump(tanakh_data, outfile, indent=4)

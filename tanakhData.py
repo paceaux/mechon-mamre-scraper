@@ -14,7 +14,7 @@ def get_links_from_start(startPoint, prepended_path = ''):
     return linkList
 
 def get_tanakh_data_from_html(pageHtml, url):
-    full_path = get_path_for_urls(url);
+    full_path = get_path_for_urls(url)
     torahListStart = pageHtml.find('strong', text=re.compile('Torah'))
     neviimListStart = pageHtml.find('strong', text=re.compile('Prophets'))
     kethuvimListStart = pageHtml.find('strong', text=re.compile('Writings'))
