@@ -15,17 +15,28 @@ def main(argv):
         if opt in ('-g', '--group'):
             bookGroupName = arg
         if opt in ('-b', '--book'):
-            bookName = arg
+            bookNames = arg.split(',')
 
     try:
         with open('books/tanakhBookLinks.json') as datafile:
             bookList = json.load(datafile)
-
+                
+            # scraping a list of books
             if (bookList[bookGroupName] is not None):
-                print('getting list of books:' + bookGroupName)
-                for book, url in bookList[bookGroupName].items():
-                    print(url)
-                    scrapeBook(url)
+                print('!*---Scraping Group: ' + bookGroupName + '---*!')
+
+                #list of books, and one book from that list
+                if (bookNames is not None):
+                    for bookName in bookNames:
+                        if(bookList[bookGroupName][bookName] is not None):
+                            print('Scraping Book:' + bookName)
+                            scrapeBook(bookList[bookGroupName][bookName])
+
+                # list of books, no specific book given
+                else:
+                    for book, url in bookList[bookGroupName].items():
+                        print(url)
+                        scrapeBook(url)
 
     except Exception as e:
         print('Error With outputting the file')
