@@ -5,6 +5,7 @@ from bookScraper import scrapeBook
 OUTPUT_DIRECTORY = 'books'
 
 def main(argv):
+    bookNames = None
     try:
         opts, args = getopt.getopt(argv, 'g:b:', ['g=', 'b='])
     except getopt.GetoptError:
@@ -23,14 +24,12 @@ def main(argv):
                 
             # scraping a list of books
             if (bookList[bookGroupName] is not None):
-                print('!*---Scraping Group: ' + bookGroupName + '---*!')
+                print('scraping from a list of books:' + bookGroupName)
 
                 #list of books, and one book from that list
                 if (bookNames is not None):
                     for bookName in bookNames:
-                        if(bookList[bookGroupName][bookName] is not None):
-                            print('Scraping Book:' + bookName)
-                            scrapeBook(bookList[bookGroupName][bookName])
+                        scrapeBook(bookList[bookGroupName][bookName])
 
                 # list of books, no specific book given
                 else:
