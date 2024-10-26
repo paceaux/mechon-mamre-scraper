@@ -1,4 +1,4 @@
-#src/validator/bible_verse_validator.py
+#src/validator/tanakhVerseValidator.py
 
 # Define the data structure for the Tanakh
 tanakh = [
