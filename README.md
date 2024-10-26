@@ -1,26 +1,71 @@
-# A utility to convert [mechon-mamre](https://www.mechon-mamre.org/p/pt/pt0.htm) content from HTML to JSON
 
-Useful for building an API
+# Mechon-Mamre HTML to JSON Converter
 
-Not endorsed by Mechon-mamre in any way.
+A utility to convert [Mechon-Mamre](https://www.mechon-mamre.org/p/pt/pt0.htm) content from HTML to JSON, useful for building an API. **This project is not endorsed by Mechon-Mamre**.
 
-## prerequisites:
-Beautiful Soup
+## Prerequisites
 
-## Command Line
-### Create JSON file for a single book
-```python bookScraper.py -u https://mechon-mamre.org/p/pt/pt0101.htm```
+- **Python 3.x**
+- **Beautiful Soup** - for parsing HTML content. Install via `pip`:
 
-This will find all chapters in the book and generate a single JSON file. 
+  ```bash
+  pip install beautifulsoup4 requests
+  ```
 
-### Create JSON file that lists all of the books
-```python tanakScraper.py -u https://www.mechon-mamre.org/p/pt/pt0.htm```
+## Command Line Usage
 
-### Create JSON files for books _from_ the JSON file that lists them
+### 1. Convert a Single Book to JSON
 
-* `-g` name of group. Required. torah || prophets || writings
-* `-b` name of book(s). Optional. comma separated names of books
-```scrapeAllBooks.py -g prophets -b Zephaniah,Haggai```
+To create a JSON file for a single book:
 
-# Note
-Mechon-mamre states that their content is copyrighted with all rights reserved. I have asked their permission to do this, they have not responded. 
+```bash
+python bookScraper.py -u https://mechon-mamre.org/p/pt/pt0101.htm
+```
+
+This command finds all chapters in the specified book and generates a single JSON file containing the book's content.
+
+### 2. Generate a JSON List of All Books
+
+To create a JSON file that lists all books in the Tanakh:
+
+```bash
+python tanakScraper.py -u https://www.mechon-mamre.org/p/pt/pt0.htm
+```
+
+### 3. Generate JSON Files for Selected or All Books from the Book List
+
+To scrape books from the Tanakh JSON list and create individual JSON files:
+
+- Use `-g` to specify the group (`torah`, `prophets`, or `writings`).
+- Use `-b` to specify specific books (comma-separated).
+- Use `-a` to scrape *all* books.
+
+#### Scrape Specific Books
+
+```bash
+python scrapeAllBooks.py -g prophets -b Zephaniah,Haggai
+```
+
+This example scrapes and saves JSON files for *Zephaniah* and *Haggai* from the *prophets* group.
+
+#### Scrape All Books
+
+```bash
+python scrapeAllBooks.py -g writings -a
+```
+
+This command scrapes and saves JSON files for *all books* in the *writings* group.
+
+## File Structure
+
+The script saves HTML files to a `data/html` directory to prevent re-downloading content on repeated runs. This caching speeds up the process and reduces unnecessary server requests.
+
+## Important Notes
+
+- **Copyright**: Mechon-Mamre states that their content is copyrighted with all rights reserved. This project aims to respect these rights, and permission has been sought to perform this scraping; however, no response has been received.
+
+- **Use Responsibly**: This tool is intended for educational and non-commercial use. Please ensure your usage aligns with Mechon-Mamre’s terms.
+
+---
+
+**Disclaimer**: This utility is independently created and is not affiliated with or endorsed by Mechon-Mamre.
