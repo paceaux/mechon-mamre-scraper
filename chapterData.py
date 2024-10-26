@@ -1,6 +1,7 @@
 # chapterData.py
 from fetchPages import get_page
 import re
+from tanakhVerseValidator import validate_verses
 
 CHAPTER_MARKER = 'Chapter '
 
@@ -141,6 +142,13 @@ def get_chapter_data_from_html(html):
     chapter_data['canonicalTitle'] = title['english']
     chapter_data['bookName'] = book_name
     chapter_data['verses'] = verses
+
+    # Validate total verse count using bible_verse_validator
+    total_verses = len(verses)
+    valid = validate_verses(book_name, chapter_number=chapter_number, total_verses=total_verses)  # Adjust book_number as needed
+    if not valid:
+        #print(f"Warning: {book_name} Chapter {chapter_number} has an unexpected verse count ({total_verses}).")
+        pass
 
     return chapter_data
 

@@ -5,6 +5,7 @@ import getopt
 import json
 from chapterData import get_chapter_data
 from bookData import get_book_data
+from tanakhVerseValidator import compare_bible_versions
 
 OUTPUT_DIRECTORY = 'books'
 
@@ -22,6 +23,14 @@ def scrapeBook(url):
     os.makedirs(OUTPUT_DIRECTORY, exist_ok=True)
     with open(book_file_name, 'w', encoding='utf-8') as outfile:
         json.dump(book_data, outfile, ensure_ascii=False, indent=4)
+    
+    # At the end always compare Tanakh with KJV Bible, jut to make sure
+    discrepancies = compare_bible_versions()
+    for d in discrepancies:
+        print(f"\nIssue found in {d['book']}:")
+        for key, value in d.items():
+            if key != 'book':
+                print(f"  {key}: {value}")
 
 def main(argv):
     try:
