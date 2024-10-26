@@ -1,57 +1,73 @@
 from fetchPages import get_page
-from chapterData import get_chapter_title
 
-BOOK_INFO_SELECTOR= 'table[width="100%"][cellspacing="10"] font'
-
-def get_chapter_links(html):
-    chapter_link_wrapper = html.select(BOOK_INFO_SELECTOR)[0]
-    chapter_link_els = chapter_link_wrapper.select('a:first-child ~ a[href*="pt"]')
-    chapter_links = {}
-
-    for chapter_link_el in chapter_link_els:
-        chapter_links[chapter_link_el.text] = chapter_link_el['href']
-
-    return chapter_links
-
-def get_canonical_name(html):
-    book_name_wrapper = html.select(BOOK_INFO_SELECTOR)[0]
-    book_name_node = book_name_wrapper.select('a:first-child')[0].next_sibling
-    book_name = book_name_node.replace('-', '').replace('\n','').strip()
-
-    return book_name
-
-def get_book_data_from_html(html):
+def get_book_data_from_html(html, url):
     book_data = {}
-    canonicalBookName = get_canonical_name(html)
-    chapter_links = get_chapter_links(html)
 
+    # Find the script tag that calls 'chapters' function
+    script_tags = html.find_all('script')
+    for script in script_tags:
+        script_content = script.get_text()
+        if script_content and 'chapters(' in script_content:
+            break
+    else:
+        raise Exception('No chapters function found in script tags')
+
+    # Extract arguments from the script content
+    args_str = script_content.strip()[9:-1]  # Remove 'chapters(' and ')'
+    args = [arg.strip().strip("'\"") for arg in args_str.split(',')]
+
+    # Debug print to check the arguments
+    # print("Script content:", script_content)
+    # print("Arguments:", args)
+
+    url_prefix = args[0]
+    start_chapter = int(args[1])
+    end_chapter = int(args[2])
+
+    if len(args) > 5:
+        book_name = args[5]
+    else:
+        #book_name = 'Unknown'
+        raise Exception('Book name not found in script arguments')
+
+    canonicalBookName = book_name
     book_data['canonicalBookName'] = canonicalBookName
-    book_data['chapters'] = chapter_links
+
+    # Generate chapter links
+    chapters = {}
+    base_url = '/'.join(url.split('/')[:-1]) + '/'
+
+    for chapter_num in range(start_chapter, end_chapter + 1):
+        chapter_link = get_chapter_link(url_prefix, chapter_num, base_url)
+        chapters[str(chapter_num)] = chapter_link
+
+    book_data['chapters'] = chapters
 
     return book_data
 
-def get_first_chapter_link(url):
-    url_parts = url.split('/')
-    url_parts_len = len(url_parts)
-    chapter_one_url = url_parts[url_parts_len - 1]
-
-    return chapter_one_url
+def get_chapter_link(url_prefix, chapter_num, base_url):
+    if url_prefix == 'pt26':  # Psalms
+        if chapter_num <= 99:
+            chapter_str = str(chapter_num).zfill(2)
+            chapter_link = f"{base_url}{url_prefix}{chapter_str}.htm"
+        else:
+            # For chapters >= 100
+            letters = ['a', 'b', 'c', 'd', 'e']
+            index = min((chapter_num - 100) // 10, 4)  # Ensure index doesn't exceed 4
+            letter = letters[index]
+            digit = (chapter_num - 100) % 10
+            chapter_link = f"{base_url}{url_prefix}{letter}{digit}.htm"
+    else:
+        # For other books
+        chapter_str = str(chapter_num).zfill(2)
+        chapter_link = f"{base_url}{url_prefix}{chapter_str}.htm"
+    return chapter_link
 
 def get_book_data(url):
     try:
         pageHtml = get_page(url)
-        book_data = get_book_data_from_html(pageHtml)
-        book_title = get_chapter_title(pageHtml)
-        first_chapter_link =  get_first_chapter_link(url)
-        full_url_path = url.replace(first_chapter_link, '')
-
-        book_data['bookName'] = book_title
-        book_data['chapters']['1'] = first_chapter_link
-
-        for chapterLinkK, chapterLinkV in book_data['chapters'].items():
-            book_data['chapters'][chapterLinkK] = full_url_path + chapterLinkV
-
+        book_data = get_book_data_from_html(pageHtml, url)
         return book_data
-    
     except Exception as error:
-        print(error)
+        print('Error in get_book_data:', error)
+        return {}
