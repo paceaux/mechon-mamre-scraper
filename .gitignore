@@ -1,3 +1,4 @@
 books/
 __pycache__
 .vscode
+data/
